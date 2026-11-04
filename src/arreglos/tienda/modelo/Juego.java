@@ -61,4 +61,31 @@ public class Juego {
         if (precio > 0)
             this.precio = precio;
     }
+    public boolean comprar(int cantidad){
+        if (cantidad > 0){
+            licenciasDisponibles += cantidad;
+            return true;
+        }
+        return false;
+    }
+    public boolean vender(int cantidad){
+        if (cantidad > 0 && cantidad <= licenciasDisponibles){
+            licenciasDisponibles -= cantidad;
+            licenciasVendidas += cantidad;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Juego{" +
+                "nombre='" + nombre + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", memoria=" + memoria +
+                ", precio=" + precio +
+                ", licenciasDisponibles=" + licenciasDisponibles +
+                ", licenciasVendidas=" + licenciasVendidas +
+                '}';
+    }
 }
