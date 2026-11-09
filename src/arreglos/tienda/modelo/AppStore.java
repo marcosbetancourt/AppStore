@@ -25,8 +25,8 @@ public class AppStore {
         }
     }
     public Juego buscarJuego(String nombre){
-        for (int i = 0; i < indice; i++){
-            if (juegos[1].getNombre().equalsIgnoreCase(nombre)){
+        for (int i = 0; i <= indice; i++){
+            if (juegos[i].getNombre().equalsIgnoreCase(nombre)){
                 return juegos[i];
             }
         }
@@ -48,6 +48,6 @@ public class AppStore {
             juegoS += juegos[i];
             juegoS += "?\n";
         }
-        return !juegoS.trim().isBlank()?juegoS:"No hay juegos a mostrar"
+        return !juegoS.trim().isBlank()?juegoS:"No hay juegos a mostrar";
     }
 }
