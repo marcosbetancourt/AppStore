@@ -55,15 +55,7 @@ public class MainTienda {
                 } break;
 
                 case 5: {
-                    System.out.println("\n--- VENDER JUEGO ---");
-                    String nombre = val.leerString("Nombre del juego");
-                    int cantidad = val.leerEnteroPositivo("Cantidad de licencias a vender");
-                    double total = tienda.vender(nombre, cantidad);
-                    if(total > 0) {
-                        System.out.println("Venta exitosa. Total a cobrar: $" + total);
-                    } else {
-                        System.out.println("Error: Juego no encontrado o licencias insuficientes.");
-                    }
+                    vender();
                 } break;
 
                 case 6: {
@@ -97,7 +89,6 @@ public class MainTienda {
 
     public static void ingresarJuego(){
         System.out.println("*******Ingreso de datos********");
-        System.out.print("Ingrese el nombre: ");
         String nombre = Validacion.leerString("Ingrese el nombre");
         String categoria = Validacion.leerString("Ingrese la categoria");;
         System.out.print("Ingrese el tamanio: ");
@@ -125,5 +116,18 @@ public class MainTienda {
         }
     }
 */
+public static void vender(){
+    String nombre = Validacion.leerString("Ingrese el nombre del juego");
+    System.out.print("Ingrese la cantidad: ");
+    int cantidad = Integer.parseInt(sc.nextLine());
+
+    double pago = tienda.vender(nombre,cantidad);
+    if(pago > 0){
+        JOptionPane.showMessageDialog(null,"Juego: "+nombre+"\nCantidad: "+cantidad+
+                "\nValor a cancelar: "+pago);
+    }else{
+        JOptionPane.showMessageDialog(null,"No ha sido posible vender el juego "+nombre);
+    }
+}
 
 }
