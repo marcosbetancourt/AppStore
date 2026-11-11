@@ -3,60 +3,101 @@ package arreglos.tienda.interfaz;
 import arreglos.tienda.modelo.AppStore;
 import arreglos.tienda.modelo.Juego;
 
+import java.util.Scanner;
+
 public class MainTienda {
-    public static void main() {
+    private static Scanner sc = new Scanner(System.in);
+    private static AppStore tienda = new AppStore();
+    // Instanciamos la validación para poder usarla en los cases
+    private static Validacion val = new Validacion();
 
+    public static void main(String[] args) {
+        int opc;
+        do {
+            menu();
+            // Aprovechamos la validación para asegurar que digite del 1 al 7
+            opc = val.leerEnteroEntre("Ingrese una opcion", 1, 7);
 
-        System.out.println("=== PRUEBA INICIAL DE LA PROFE ===");
-        Juego j1 = new Juego("Fifa26", "Deportes", 15, 45, 50);
-        System.out.println(j1);
-        System.out.println("--------------------------------------------------\n");
+            switch (opc) {
+                case 1: {
+                    System.out.println("\n--- INGRESAR NUEVO JUEGO ---");
+                    String nombre = val.leerString("Nombre del juego");
+                    String categoria = val.leerString("Categoría");
+                    int tamanio = val.leerEnteroPositivo("Tamaño en MB");
+                    double precio = val.leerFlotantePositivo("Precio en $");
+                    int licencias = val.leerEnteroPositivo("Licencias iniciales");
 
+                    Juego nuevo = new Juego(nombre, categoria, tamanio, precio, licencias);
+                    tienda.agregarJuego(nuevo);
+                    System.out.println("Juego registrado correctamente.");
+                } break;
 
-        AppStore miTienda = new AppStore();
+                case 2: {
+                    System.out.println("\n--- LISTA DE JUEGOS ---");
+                    System.out.println(tienda.sacarJuegos());
+                } break;
 
-        System.out.println("=== INVENTARIO INICIAL ===");
-        System.out.println(miTienda.sacarJuegos());
+                case 3: {
+                    System.out.println("\n--- BUSCAR JUEGO ---");
+                    String nombre = val.leerString("Nombre del juego a buscar");
+                    Juego j = tienda.buscarJuego(nombre);
+                    if(j != null) {
+                        System.out.println("Encontrado: " + j.toString());
+                    } else {
+                        System.out.println("El juego no existe en la tienda.");
+                    }
+                } break;
 
+                case 4: {
+                    System.out.println("\n--- COMPRAR STOCK ---");
+                    String nombre = val.leerString("Nombre del juego");
+                    int cantidad = val.leerEnteroPositivo("Cantidad de licencias a añadir");
+                    boolean ok = tienda.comprar(nombre, cantidad);
+                    if(ok) {
+                        System.out.println("Stock actualizado correctamente.");
+                    } else {
+                        System.out.println("Error: Juego no encontrado.");
+                    }
+                } break;
 
-        Juego j3 = new Juego("Minecraft", "Aventura", 10, 29.99, 100);
-        Juego j4 = new Juego("Call of Duty", "Acción", 50, 60.00, 30);
+                case 5: {
+                    System.out.println("\n--- VENDER JUEGO ---");
+                    String nombre = val.leerString("Nombre del juego");
+                    int cantidad = val.leerEnteroPositivo("Cantidad de licencias a vender");
+                    double total = tienda.vender(nombre, cantidad);
+                    if(total > 0) {
+                        System.out.println("Venta exitosa. Total a cobrar: $" + total);
+                    } else {
+                        System.out.println("Error: Juego no encontrado o licencias insuficientes.");
+                    }
+                } break;
 
-        miTienda.agregarJuego(j3);
-        miTienda.agregarJuego(j4);
+                case 6: {
+                    System.out.println("\n--- ESTADÍSTICAS ---");
+                    String masVendido = tienda.juegoMasVendido();
+                    if(masVendido != null && !masVendido.isEmpty()) {
+                        System.out.println("El juego más vendido es: " + masVendido);
+                    } else {
+                        System.out.println("Aún no hay ventas registradas.");
+                    }
+                } break;
 
-        System.out.println("=== INVENTARIO DESPUÉS DE AGREGAR JUEGOS ===");
-        System.out.println(miTienda.sacarJuegos());
-
-
-        System.out.println("=== BUSCANDO JUEGO ===");
-        String nombreBuscado = "Roblox";
-        Juego encontrado = miTienda.buscarJuego(nombreBuscado);
-
-        if (encontrado != null) {
-            System.out.println("Juego encontrado con éxito: " + encontrado.getNombre());
-
-            // Probamos vender licencias
-            System.out.println("Vendiendo 5 licencias de " + encontrado.getNombre() + "...");
-            boolean ventaExitosa = encontrado.vender(5);
-            if (ventaExitosa) {
-                System.out.println("Venta realizada. Licencias restantes: " + encontrado.getLicenciasDisponibles());
-            } else {
-                System.out.println("Error: No hay suficientes licencias.");
+                case 7: {
+                    System.out.println("\nSaliendo del sistema...");
+                    System.out.println("Gracias por usar nuestros servicios.");
+                } break;
             }
-        } else {
-            System.out.println("El juego '" + nombreBuscado + "' no existe en la tienda.");
-        }
+        } while(opc != 7);
+    }
 
-
-        System.out.println("\n=== COMPRANDO STOCK ===");
-        double costo = miTienda.comprar("Fifa26", 20);
-        if (costo > 0) {
-            System.out.println("Se compró nuevo stock de Fifa26. Costo total de la inversión: $" + costo);
-        }
-
-
-        System.out.println("\n=== ESTADO FINAL DE LA TIENDA ===");
-        System.out.println(miTienda.sacarJuegos());
+    public static void menu() {
+        System.out.println("\n**********AppStore Udla**********");
+        System.out.println("1. Ingresar Juego");
+        System.out.println("2. Mostrar juegos");
+        System.out.println("3. Buscar juego");
+        System.out.println("4. Comprar");
+        System.out.println("5. Vender");
+        System.out.println("6. Juego más vendido");
+        System.out.println("7. Salir");
     }
 }

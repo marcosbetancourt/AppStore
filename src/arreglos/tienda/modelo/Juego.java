@@ -3,15 +3,15 @@ package arreglos.tienda.modelo;
 public class Juego {
     private String nombre;
     private String categoria;
-    private int memoria;
+    private int tamanio;
     private double precio;
     private int licenciasDisponibles;
     private int licenciasVendidas;
 
-    public Juego(String nombre, String categoria, int memoria, double precio, int licenciasDisponibles) {
+    public Juego(String nombre, String categoria, int tamanio, double precio, int licenciasDisponibles) {
         this.nombre = nombre;
         this.categoria = categoria;
-        this.memoria = memoria;
+        this.tamanio = tamanio;
         this.precio = precio;
         this.licenciasDisponibles = licenciasDisponibles;
         licenciasVendidas = 0;
@@ -25,8 +25,8 @@ public class Juego {
         return categoria;
     }
 
-    public int getMemoria() {
-        return memoria;
+    public int getTamanio() {
+        return tamanio;
     }
 
     public double getPrecio() {
@@ -42,34 +42,34 @@ public class Juego {
     }
 
     public void setNombre(String nombre) {
-
-        if (nombre != null && !nombre.trim().isEmpty())
+        if(nombre != null && !nombre.trim().isEmpty())
             this.nombre = nombre;
     }
 
     public void setCategoria(String categoria) {
-        if (categoria != null && !categoria.trim().isEmpty())
+        if(categoria != null && !categoria.trim().isEmpty())
             this.categoria = categoria;
     }
 
-    public void setMemoria(int memoria) {
-        if (memoria > 0)
-            this.memoria = memoria;
+    public void setTamanio(int tamanio) {
+        if(tamanio > 0)
+            this.tamanio = tamanio;
     }
 
     public void setPrecio(double precio) {
-        if (precio > 0)
+        if(precio > 0)
             this.precio = precio;
     }
+
     public boolean comprar(int cantidad){
-        if (cantidad > 0){
+        if(cantidad > 0){
             licenciasDisponibles += cantidad;
             return true;
         }
         return false;
     }
     public boolean vender(int cantidad){
-        if (cantidad > 0 && cantidad <= licenciasDisponibles){
+        if(cantidad > 0 && cantidad <= licenciasDisponibles){
             licenciasDisponibles -= cantidad;
             licenciasVendidas += cantidad;
             return true;
@@ -77,12 +77,13 @@ public class Juego {
         return false;
     }
 
+
     @Override
     public String toString() {
         return "Juego{" +
                 "nombre='" + nombre + '\'' +
                 ", categoria='" + categoria + '\'' +
-                ", memoria=" + memoria +
+                ", tamanio=" + tamanio +
                 ", precio=" + precio +
                 ", licenciasDisponibles=" + licenciasDisponibles +
                 ", licenciasVendidas=" + licenciasVendidas +
