@@ -1,11 +1,11 @@
-package arreglos.tienda.interfaz;
+package arreglos.tienda.utilitario;
 
 import java.util.Scanner;
 
 public class Validacion {
     private static Scanner sc = new Scanner(System.in);
 
-    public String leerString(String mensaje) {
+    public static String leerString(String mensaje) {
         String texto;
         do {
             System.out.print(mensaje + ": ");
@@ -17,7 +17,7 @@ public class Validacion {
     // ==========================================
     // VALIDACIONES PARA ENTEROS (int)
     // ==========================================
-    public int leerEnteroPositivo(String mensaje) {
+    public static int leerEnteroPositivo(String mensaje) {
         int num = -1;
         do {
             try {
@@ -30,7 +30,7 @@ public class Validacion {
         return num;
     }
 
-    public int leerEnteroMayorQue(String mensaje, int limite) {
+    public static int leerEnteroMayorQue(String mensaje, int limite) {
         int num = limite - 1;
         do {
             try {
@@ -43,7 +43,7 @@ public class Validacion {
         return num;
     }
 
-    public int leerEnteroMenorQue(String mensaje, int limite) {
+    public static int leerEnteroMenorQue(String mensaje, int limite) {
         int num = limite + 1;
         do {
             try {
@@ -56,7 +56,7 @@ public class Validacion {
         return num;
     }
 
-    public int leerEnteroEntre(String mensaje, int min, int max) {
+    public static int leerEnteroEntre(String mensaje, int min, int max) {
         int num = min - 1;
         do {
             try {
@@ -72,7 +72,7 @@ public class Validacion {
     // ==========================================
     // VALIDACIONES PARA FLOTANTES (double)
     // ==========================================
-    public double leerFlotantePositivo(String mensaje) {
+    public static double leerFlotantePositivo(String mensaje) {
         double num = -1;
         do {
             try {
@@ -85,7 +85,7 @@ public class Validacion {
         return num;
     }
 
-    public double leerFlotanteMayorQue(String mensaje, double limite) {
+    public static double leerFlotanteMayorQue(String mensaje, double limite) {
         double num = limite - 1;
         do {
             try {
@@ -98,7 +98,7 @@ public class Validacion {
         return num;
     }
 
-    public double leerFlotanteMenorQue(String mensaje, double limite) {
+    public static double leerFlotanteMenorQue(String mensaje, double limite) {
         double num = limite + 1;
         do {
             try {
@@ -111,7 +111,7 @@ public class Validacion {
         return num;
     }
 
-    public double leerFlotanteEntre(String mensaje, double min, double max) {
+    public static double leerFlotanteEntre(String mensaje, double min, double max) {
         double num = min - 1;
         do {
             try {

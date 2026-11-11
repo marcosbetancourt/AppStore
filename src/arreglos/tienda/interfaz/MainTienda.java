@@ -1,8 +1,10 @@
 package arreglos.tienda.interfaz;
 
-import arreglos.tienda.modelo.AppStore;
+import arreglos.tienda.modelo.*;
 import arreglos.tienda.modelo.Juego;
+import arreglos.tienda.utilitario.Validacion;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class MainTienda {
@@ -11,8 +13,9 @@ public class MainTienda {
     // Instanciamos la validación para poder usarla en los cases
     private static Validacion val = new Validacion();
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         int opc;
+        tienda.cargarDatos();
         do {
             menu();
             // Aprovechamos la validación para asegurar que digite del 1 al 7
@@ -20,21 +23,12 @@ public class MainTienda {
 
             switch (opc) {
                 case 1: {
-                    System.out.println("\n--- INGRESAR NUEVO JUEGO ---");
-                    String nombre = val.leerString("Nombre del juego");
-                    String categoria = val.leerString("Categoría");
-                    int tamanio = val.leerEnteroPositivo("Tamaño en MB");
-                    double precio = val.leerFlotantePositivo("Precio en $");
-                    int licencias = val.leerEnteroPositivo("Licencias iniciales");
-
-                    Juego nuevo = new Juego(nombre, categoria, tamanio, precio, licencias);
-                    tienda.agregarJuego(nuevo);
-                    System.out.println("Juego registrado correctamente.");
+                    ingresarJuego();
                 } break;
 
                 case 2: {
-                    System.out.println("\n--- LISTA DE JUEGOS ---");
                     System.out.println(tienda.sacarJuegos());
+
                 } break;
 
                 case 3: {
@@ -100,4 +94,36 @@ public class MainTienda {
         System.out.println("6. Juego más vendido");
         System.out.println("7. Salir");
     }
+
+    public static void ingresarJuego(){
+        System.out.println("*******Ingreso de datos********");
+        System.out.print("Ingrese el nombre: ");
+        String nombre = Validacion.leerString("Ingrese el nombre");
+        String categoria = Validacion.leerString("Ingrese la categoria");;
+        System.out.print("Ingrese el tamanio: ");
+        int tamanio = Integer.parseInt(sc.nextLine());
+        System.out.print("Ingrese el precio: ");
+        double precio = Double.parseDouble(sc.nextLine());
+        System.out.print("Ingrese el stock inicial: ");
+        int licenciasDisponibles = Integer.parseInt(sc.nextLine());
+        if (tienda.agregarJuego(new Juego(nombre,categoria,tamanio,precio,licenciasDisponibles))){
+            JOptionPane.showMessageDialog(null,"El juego se ha agregado correctamente");
+        }else {
+            JOptionPane.showMessageDialog(null,"El juego no pudo ser agregado");
+        }
+
+    }
+/*
+    public static void mostrarJuegos(){
+        Juego juegos[] = juegos = tienda.getJuegos();
+        if (tienda.getIndice() != -1){
+            for (int i = 0; i <= tienda.getIndice(); i++) {
+                System.out.println(juegos[i]);
+            }
+        }else{
+        System.out.println("No hay juegos para mostrar");
+        }
+    }
+*/
+
 }
